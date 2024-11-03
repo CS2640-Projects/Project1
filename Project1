@@ -1,0 +1,175 @@
+#Project 1 MIPS Assembly
+#CS2640
+#11/3/2024
+#takes an input from the user of two integers and performs addition, subtraction, multiplication, and division with them. It also out puts whether or not they are the same number or not.
+
+.data
+prompt1: .asciiz "Enter first number: "
+prompt2: .asciiz "Enter second number: "
+prompt3: .asciiz "First number entered was: "
+prompt4: .asciiz "Second number entered was: "
+
+Equal: .asciiz "User inputs are the same"
+notEqual: .asciiz "User inputs are different"
+
+addedVals: .asciiz "Added values: "
+subbedVals: .asciiz "Subtracted values: "
+multVals: .asciiz "Multiplied values: "
+divVals: .asciiz "Divided values: "
+
+newLine: .asciiz "\n"
+
+.text
+main:
+	#prompt user for first input
+   	li $v0, 4
+   	la $a0, prompt1
+   	syscall
+   	
+   	#get first input
+   	li $v0, 5
+   	syscall
+   	move $s0, $v0
+   	
+   	#prompt user for second input
+  	li $v0, 4
+  	la $a0, prompt2
+  	syscall
+  	
+  	#get second input
+  	li $v0, 5
+  	syscall
+  	move $s1, $v0
+  	
+  	#print first input
+  	li $v0, 4
+  	la $a0, prompt3
+  	syscall
+  	
+  	move $a0, $s0
+  	li $v0, 1
+  	syscall
+  	
+  	#new line
+  	li $v0, 4
+    	la $a0, newLine
+    	syscall
+  	
+  	#print second input
+  	li $v0, 4
+  	la $a0, prompt4
+  	syscall
+  	
+  	move $a0, $s1
+  	li $v0, 1
+  	syscall
+  	
+  	#new line
+  	li $v0, 4
+    	la $a0, newLine
+    	syscall
+  	
+  	#Add the two values:
+  	add $t0, $s0, $s1
+  	
+  	#print the addedVals prompt
+  	li $v0, 4
+  	la $a0, addedVals
+  	syscall
+  	
+  	#print the added values
+  	move $a0, $t0
+  	li $v0, 1
+  	syscall
+  	
+  	#new line
+  	li $v0, 4
+    	la $a0, newLine
+    	syscall
+  	
+  	
+  	
+  	#Subtract the two values:
+  	sub $t0, $s0, $s1
+  	
+  	#print the subbedVals prompt
+  	li $v0, 4
+  	la $a0, subbedVals
+  	syscall
+  	
+  	#print the added values
+  	move $a0, $t0
+  	li $v0, 1
+  	syscall
+  	
+  	
+  	
+  	#new line
+  	li $v0, 4
+    	la $a0, newLine
+    	syscall
+    	
+  	#Multiply the two values:
+  	mul $t0, $s0, $s1
+  	
+  	#print the multVals prompt
+  	li $v0, 4
+  	la $a0, multVals
+  	syscall
+  	
+  	#print the multiplied values
+  	move $a0, $t0
+  	li $v0, 1
+  	syscall
+  	
+  	
+  	
+  	
+  	#new line
+  	li $v0, 4
+    	la $a0, newLine
+    	syscall
+    	
+  	#Divide the two values:
+  	div $t0, $s0, $s1
+  	
+  	#print the divVals prompt
+  	li $v0, 4
+  	la $a0, divVals
+  	syscall
+  	
+  	#print the multiplied values
+  	move $a0, $t0
+  	li $v0, 1
+  	syscall
+  	
+  	
+  	
+  	#new line
+  	li $v0, 4
+    	la $a0, newLine
+    	syscall
+  	
+  	#Checks to see if user inputs are the same or not
+  	beq $s0, $s1, isEqual
+  	
+  	#otherwise, print not equal
+  	li $v0, 4
+  	la $a0, notEqual
+  	syscall
+  	
+	#jumps to the end
+  	j end
+  	
+isEqual:
+  	#prints if user inputs are equal
+  	li $v0, 4
+  	la $a0, Equal
+  	syscall
+  	
+end:
+  	#Exit program
+  	li $v0, 10
+  	syscall
+  	
+  
